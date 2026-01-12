@@ -1,16 +1,28 @@
 import React from 'react'
 
-const SoundButton = ({ label, onClick, isActive, variant = 'primary' }) => {
-    return (
-        <button
-            className={`mecha-btn ${isActive ? 'active' : ''} ${variant}`}
-            onClick={onClick}
-        >
-            <span className="btn-content">{label}</span>
-            <span className="corner-decor top-left"></span>
-            <span className="corner-decor bottom-right"></span>
+const SoundButton = ({ label, onClick, isActive, variant = 'primary', onDelete }) => {
+  return (
+    <button
+      className={`mecha-btn ${isActive ? 'active' : ''} ${variant}`}
+      onClick={onClick}
+    >
+      <span className="btn-content">{label}</span>
+      <span className="corner-decor top-left"></span>
+      <span className="corner-decor bottom-right"></span>
 
-            <style>{`
+      {onDelete && (
+        <div
+          className="delete-handle"
+          onClick={(e) => {
+            e.stopPropagation()
+            onDelete()
+          }}
+        >
+          ×
+        </div>
+      )}
+
+      <style>{`
         .mecha-btn {
           position: relative;
           background: transparent;
@@ -23,6 +35,35 @@ const SoundButton = ({ label, onClick, isActive, variant = 'primary' }) => {
           font-weight: bold;
           overflow: hidden;
           transition: all 0.2s ease;
+        }
+
+        .mecha-btn:hover .delete-handle {
+            opacity: 1;
+        }
+
+        .delete-handle {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 0, 60, 0.2);
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+            border: 1px solid var(--color-secondary);
+            opacity: 0;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .delete-handle:hover {
+            background: var(--color-secondary);
+            color: #fff;
         }
 
         .mecha-btn.secondary {
@@ -76,8 +117,8 @@ const SoundButton = ({ label, onClick, isActive, variant = 'primary' }) => {
           border-top: none;
         }
       `}</style>
-        </button>
-    )
+    </button>
+  )
 }
 
 export default SoundButton
