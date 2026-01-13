@@ -92,7 +92,10 @@ function App() {
   return (
     <div className="mecha-container">
       <header className="mecha-header">
-        <h1>MECHA SOUNDBOARD <span className="version">v1.2</span></h1>
+        <div className="branding">
+          <img src="/logo.png" alt="Mecha Logo" className="logo-img" />
+          <h1>MECHA SOUNDBOARD <span className="version">v1.2</span></h1>
+        </div>
         <div className="header-controls">
           <button className="upload-btn" onClick={() => fileInputRef.current.click()}>
             [ + UPLOAD MP3 ]
@@ -162,6 +165,17 @@ function App() {
           border-bottom: 1px solid var(--color-primary-dim);
           padding-bottom: 10px;
           margin-bottom: 20px;
+        }
+
+        .branding {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .logo-img {
+          height: 60px;
+          filter: drop-shadow(0 0 5px var(--color-primary-dim));
         }
 
         .header-controls {
